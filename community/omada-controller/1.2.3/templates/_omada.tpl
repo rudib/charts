@@ -6,7 +6,9 @@ workload:
     type: Deployment
     podSpec:
       hostNetwork: {{ .Values.omadaNetwork.hostNetwork }}
-      dnsPolicy: Default
+    {{- if .Values.omadaNetwork.hostNetwork }}
+      dnsPolicy: ClusterFirstWithHostNet
+    {{- end }}
       securityContext:
         fsGroup: {{ .Values.omadaID.group }}
       containers:
